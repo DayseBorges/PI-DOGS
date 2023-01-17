@@ -1,13 +1,13 @@
-const { apiFn } = require("./temperamentsControllers");
+const { getDogsApi } = require("./temperamentsControllers");
 const { getDogs } = require("./dogsControllers");
 
-const joinDB = async () => {
-    const dataApi = await apiFn();
+const allDogs = async () => {
+    const dataApi = await getDogsApi();
     const dataDB = await getDogs();
-    const join = dataApi.concat(dataDB);
-    return join
+    const allDogs = [...dataApi, ...dataDB]; 
+    return allDogs;
 }
 
 module.exports = {
-    joinDB
+    allDogs
 }

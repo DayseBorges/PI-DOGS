@@ -1,8 +1,9 @@
 const { get } = require ("axios");
 const { URL, API_KEY } = process.env;
+const { Temperament } = require("../db");
 
 
-const apiFn = async () => {
+const getDogsApi = async () => {
     const dogsApi = await get(`${URL}?api_key=${API_KEY}`);
     const dogsInfo = await dogsApi.data.map(dog => {
         return {
@@ -19,6 +20,28 @@ const apiFn = async () => {
     return dogsInfo;
 }
 
+const temperamentDB = async () => {
+    const dogs = await getDogsApi();
+    const temp = dogs.map(dog => dog.temperaments).join().split(",");
+    const tempDB = temp.map(element => element.trim());
+
+    tempDB.forEach(element => {
+        if(element) {
+            Temperament.findOrCreate({
+                where: {
+                    name: element
+                }
+            })
+            
+        }
+        
+    });
+    
+    const allTemperaments = await Temperament.findAll();
+    return allTemperaments;
+}
+
 module.exports = {
-    apiFn
+    getDogsApi,
+    temperamentDB
 }
