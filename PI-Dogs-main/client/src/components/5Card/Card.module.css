@@ -1,0 +1,41 @@
+.divCard{
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    background-color: #d5d5d5e0;
+    position: relative;
+    border-radius: 1000px;
+    margin-top: 40px;
+}
+
+.img {
+    max-height:300px;
+    border-radius: 1000px; 
+    
+}
+
+.name{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -37px;
+    margin-bottom: -6px;
+    margin-left: 10%;
+    position: relative;
+    padding: 1px 6px;
+    height: 40px;
+    width: 228px;
+    font-family: monospace;
+    font-size:20px;
+    letter-spacing: 3px;
+    color: rgb(255, 255, 255);
+    background-color: #43cf27e3;
+    border-radius: 30px 30px 80px 80px;
+    text-decoration: none;
+}
+
+.name:hover {
+    text-shadow: 0px 0px 10px #043c72, 0px 10px 10px #043c72, 0 0 10px #043c72;
+    transition-duration: 0.5s;
+    cursor: pointer;
+}
