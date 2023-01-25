@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+body { font-family: 'Fredoka One', cursive; }
+
 .back {
     background-color: #67e44d;
     background-size:cover; 
@@ -20,27 +23,33 @@
     display: block;
     margin-top: 15%;
     position: absolute;
-    text-align: center;
+    text-align: end;
+    margin-left: 750px;
     width: 500px;
     height: 300px;
     color: white;
 }
 
 .love {
-    font-family: cursive;
+    font-family: 'Fredoka One', cursive;
     letter-spacing: 3px;
+    margin-top: -150px;
+    font-size: 70px;
 }
 
 .corazon {
     
-    font-size: 35px;
+    font-size: 70px;
     color: red;
 }
 
 .text {
-    margin-top: 55px;
-    font-family:monospace;
-    color: rgb(24, 19, 19);
+    margin-top: 20px;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 19px;
+    font-weight: 300;
+    color: rgb(255, 203, 114);
+    
 }
 
 .boton {
@@ -50,11 +59,18 @@
     text-decoration: none;
     background-color: #ffffff00;
     border: none;
-    font-family:monospace;
-    margin-top: 20px;
-    background-color: rgba(232, 108, 0, 0.452);
-    padding: 5px;
-    border-radius: 4px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    margin-top: 40px;
+    transition: 0.4s;
+    border: 1px solid rgba(255, 255, 255, 0.499);
+    padding: 4px;
+    border-radius: 2px;
+}
+
+.boton:hover {
+    cursor: pointer;
+    background-color: rgba(197, 92, 0, 0.452);
+    border: 1px solid rgba(213, 99, 0, 0.452);
 }
 
 .boton2 {
@@ -64,14 +80,17 @@
     text-decoration: none;
     background-color: #ffffff00;
     border: none;
-    font-family:monospace;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     margin-top: 20px;
-    background-color: rgba(232, 108, 0, 0.452);
+    transition: 0.4s;
+    border: 1px solid rgba(255, 255, 255, 0.47);
     padding: 4px;
     margin-left: 4px;
-    border-radius: 4px;
+    border-radius: 2px;
 }
 
-.boton:hover {
+.boton2:hover {
     cursor: pointer;
+    background-color: rgba(197, 92, 0, 0.452);
+    border: 1px solid rgba(213, 99, 0, 0.452);
 }

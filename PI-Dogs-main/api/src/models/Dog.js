@@ -17,12 +17,12 @@ module.exports = (sequelize) => {
     },
 
     height: {
-    type: DataTypes.FLOAT,
+    type: DataTypes.STRING,
     allowNull: false,
     },
 
     weight: {
-      type: DataTypes.FLOAT,
+      type: DataTypes.STRING,
       allowNull: false,
     },
 
@@ -31,7 +31,7 @@ module.exports = (sequelize) => {
     },
 
     lifeSpan: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
     },
 
     bred_for: {

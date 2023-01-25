@@ -1,16 +1,19 @@
 import {
   GET_DOGS,
   GET_TEMPERAMENTS,
+  PAGE_DOGS,
   FILTER_BY_TEMPERAMENTS,
-  FILTER_BY_NAME,
+  SEARCH_NAME,
   SORT_BY_NAME,
   SORT_BY_WEIGHT,
   GET_DETAILS,
   CREATE_DOG,
   DELETE_DOG,
+  FILTER_BY_CREATION
   } from "./actions";
   
   const inicialState = {
+    pageDogs: [],
     dogs: [],
     details: [],
     copyDogs: [],
@@ -22,15 +25,24 @@ import {
       case GET_DOGS:
         return {
           ...state,
-          dogs: action.payload,
-          copyDogs: action.payload,
+          dogs: [...action.payload],
+          copyDogs: [...action.payload],
         };
   
+
       case GET_TEMPERAMENTS:
         return {
           ...state,
-          temperaments: action.payload,
+          temperaments: [...action.payload],
         };
+
+
+      case PAGE_DOGS:
+      return {
+        ...state,
+        pageDogs: [...state.copyDogs.slice(action.payload.start, action.payload.end)],
+      };
+
 
       case GET_DETAILS:
         return {
@@ -38,31 +50,47 @@ import {
           details: action.payload,
         };  
       
+
       case FILTER_BY_TEMPERAMENTS:
         const { payload } = action;
-        const copyDogs = state.copyDogs;
-        const filterDog = payload === "allDogs" 
-        ? copyDogs 
-        : copyDogs.filter(element => element.temperaments === payload);
+        const allDogs = state.dogs;
+        const filterDog = payload === "allDogs"
+        ? allDogs 
+        : allDogs.filter(element => element.temperaments?.toUpperCase().includes(action.payload.toUpperCase()));
 
         const filterDogDB = [];
-        copyDogs.filter(element => typeof element.id === "string" && 
-        element.temperaments.some(temp => temp.name === payload && 
+        allDogs.filter(element => typeof element.id === "string" && 
+        element.temperaments?.toUpperCase().forEach(temp => temp.name === payload.toUpperCase() && 
         filterDogDB.push(element)));
 
         return {
           ...state,
-          dogs: [...filterDog, ...filterDogDB]
+          copyDogs: [...filterDog, ...filterDogDB]
         }
 
-      case FILTER_BY_NAME:
+
+      case FILTER_BY_CREATION:
+        let filterCreation = action.payload === "Api"
+          ? state.dogs.filter(dog => !isNaN(dog.id))
+          : state.dogs.filter(dog => isNaN(dog.id))
+           
+        return {
+          ...state,
+          copyDogs: action.payload === "allDogs"
+            ? state.dogs
+            : filterCreation
+        }
+        
+
+      case SEARCH_NAME:
         return {
           ...state,
           dogs: action.payload,
         }
 
+
       case SORT_BY_NAME:
-        const sortName = action.payload === "rising"
+        const sortName = action.payload === "asc"
         ? state.dogs.sort((a, b) => {
           return a.name > b.name 
           ? 1
@@ -80,43 +108,89 @@ import {
 
         return {
           ...state,
-          dogs: sortName,
+          copyDogs: [...sortName], 
         }
+       
 
         case SORT_BY_WEIGHT:
-          const sortWeight = action.payload === "descending"
-          ? state.dogs.sort((a, b) => {
-             if (a.weight.includes("NaN")) {
-                return 1000;
-             } else {
-              if (parseInt(a.weight.split(" - "))[0] > parseInt(b.weight.split(" - "))[0]) return 1;
-              if (parseInt(a.weight.split(" - "))[0] < parseInt(b.weight.split(" - "))[0]) return -1;
-              return 0;
-             }
-          })
-          : state.dogs.sort((a, b) => {
-              if (a.weight.includes("NaN")) {
-                return 1000;
-              } else {
-                if (parseInt(a.weight.split(" - "))[0] > parseInt(b.weight.split(" - "))[0]) return -1;
-                if (parseInt(a.weight.split(" - "))[0] < parseInt(b.weight.split(" - "))[0]) return 1;
-                return 0;
-              }
-          })
+          const sortWeight = action.payload === "asc"
+        ? [...state.copyDogs].sort((a, b) => {
+          return parseInt(a.weight.split(' - ')[0]) > parseInt(b.weight.split(' - ')[0])
+          ? 1
+          : parseInt(a.weight.split(' - ')[0]) < parseInt(b.weight.split(' - ')[0])
+          ? -1
+          : 0;
+        })
+        : [...state.copyDogs].sort((a, b) => {
+          return parseInt(a.weight.split(' - ')[0]) > parseInt(b.weight.split(' - ')[0])
+          ? - 1
+          : parseInt(a.weight.split(' - ')[0]) < parseInt(b.weight.split(' - ')[0])
+          ? 1
+          : 0;
+        })
+
+
+        return {
+          ...state,
+          copyDogs:[...sortWeight], 
+        }
+        // const sortWeight = action.payload === "asc"
+        //   ? [...state.copyDogs].sort((a, b) => {
+        //      if (a.weight.slice(5) > b.weight.slice(5)) {
+        //       return action.payload ? 1 : -1;
+        //      } 
+        //     return 0;
+        //   })
+        //   : [...state.copyDogs].sort((a, b) => {
+        //     if (a.weight.slice(5) < b.weight.slice(5)) {
+        //       return action.payload ? -1 : 1;
+        //     }
+        //     return 0;
+        //   })
   
-          return {
-            ...state,
-            dogs: sortWeight,
-          }
+        //   return {
+        //     ...state,
+        //     copyDogs: [...sortWeight],
+        //   }
+
+          // const sortWeight = action.payload === "asc"
+          // ? state.dogs.sort((a, b) => {
+          //    if (a.weight.includes("NaN")) {
+          //       return 1000;
+          //    } else {
+          //     if (parseInt(a.weight.split(" - "))[0] > parseInt(b.weight.split(" - "))[0]) return 1;
+          //     if (parseInt(a.weight.split(" - "))[0] < parseInt(b.weight.split(" - "))[0]) return -1;
+          //     return 0;
+          //    }
+          // })
+          // : state.dogs.sort((a, b) => {
+          //     if (a.weight.includes("NaN")) {
+          //       return 1000;
+          //     } else {
+          //       if (parseInt(a.weight.split(" - "))[0] > parseInt(b.weight.split(" - "))[0]) return -1;
+          //       if (parseInt(a.weight.split(" - "))[0] < parseInt(b.weight.split(" - "))[0]) return 1;
+          //       return 0;
+          //     }
+          // })
+  
+          // return {
+          //   ...state,
+          //   dogs: [...sortWeight],
+          // }
+
 
       case CREATE_DOG:
         return {
           ...state,
+          copyDogs: [action.payload, state.copyDogs],
+          temperaments: [action.payload, state.temperaments]
         };
+
 
       case DELETE_DOG:
         return {
           ...state,
+          copyDogs: state.copyDogs.filter(dogs => dogs.id.toString() !== action.payload.toString())
         };
   
   

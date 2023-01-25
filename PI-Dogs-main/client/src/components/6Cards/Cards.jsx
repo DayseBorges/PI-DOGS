@@ -2,7 +2,7 @@ import React from 'react';
 import Card from "../5Card/Card";
 import styles from './Cards.module.css'
 import { connect } from 'react-redux'
-import { getDogs } from '../../redux/actions';
+import { getDogs, getTemperaments } from '../../redux/actions';
 
 
 class Cards extends React.Component {
@@ -12,20 +12,22 @@ class Cards extends React.Component {
 
   componentDidMount() {
     this.props.getDogs();
+    this.props.getTemperaments();
   }
 
   render() {
     return (
        <div className={styles.cards}>
               {
-              [...this.props.dogs,...this.props.copyDogs].map(dog => {
+              [...this.props.pageDogs].map(dog => {
               return (
                 <Card
-                  name={dog.name}
-                  weight={dog.species}
-                  temperaments={dog.gender}
-                  image={dog.image}
                   id={dog.id}
+                  key={dog.id}
+                  name={dog.name}
+                  image={dog.image}
+                  weight={dog.weight}                  
+                  temperaments={dog.temperaments}
                 />
             )
           })
@@ -37,14 +39,15 @@ class Cards extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    dogs: state.dogs,
-    copyDogs: state.copyDogs
+    pageDogs: state.pageDogs,
+    temperaments: state.temperaments,
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     getDogs: () => dispatch(getDogs()),
+    getTemperaments: () => dispatch(getTemperaments()),
   }
 }
 

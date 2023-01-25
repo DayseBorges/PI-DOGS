@@ -25,15 +25,15 @@ dogRouter.get("/:idRaza", async (req, res) => {
         const { idRaza } = req.params;
         const allDog = await allDogs();
         if (!idRaza) {
-            res.status(404).json("Couldn't find the name on DBase")
+            res.status(404).json("This ID was not found")
         } else {
-            const dog = allDog.find(dogui => dogui.id.toString() === idRaza);
+            const dog = allDog.find(dog => dog.id.toString() === idRaza);
             res.status(200).json(dog)
         }
     } catch (error) {
         res.status(ERR).send(error.message)
     }
-})
+});
 
 dogRouter.post("/", async (req, res) => {
     let { name, height, weight, lifeSpan, image, bred_for, temperamentName } = req.body;

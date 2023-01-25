@@ -18,7 +18,7 @@ const getDogsApi = async () => {
         }
     })
     return dogsInfo;
-}
+};
 
 const temperamentDB = async () => {
     const dogs = await getDogsApi();
@@ -39,9 +39,9 @@ const temperamentDB = async () => {
     
     const allTemperaments = await Temperament.findAll();
     return allTemperaments;
-}
+};
 
 module.exports = {
     getDogsApi,
     temperamentDB
-}
+};

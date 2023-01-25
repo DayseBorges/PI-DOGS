@@ -3,12 +3,14 @@ import axios from "axios";
 export const GET_DOGS = "GET_DOGS";
 export const GET_TEMPERAMENTS = "GET_TEMPERAMENTS";
 export const GET_DETAILS = "GET_DETAILS";
-export const FILTER_BY_TEMPERAMENTS = "FILTER_TEMPERAMENTS";
-export const FILTER_BY_NAME = "FILTER_BY_NAME";
+export const PAGE_DOGS = "SET_PAGE_CHARACTER";
+export const FILTER_BY_TEMPERAMENTS = "FILTER_BY_TEMPERAMENTS";
+export const SEARCH_NAME = "SEARCH_NAME";
 export const SORT_BY_NAME = "SORT_BY_NAME";
 export const SORT_BY_WEIGHT = "SORT_BY_WEIGHT";
 export const DELETE_DOG = "DELETE_DOG";
 export const CREATE_DOG = "CREATE_DOG";
+export const FILTER_BY_CREATION = "FILTER_BY_CREATION";
 
 
 export const getDogs = () => {
@@ -32,6 +34,13 @@ export const getTemperaments = () => {
   };
 };
 
+export const pageDogs = (start, end) => {
+  return {
+    type: PAGE_DOGS,
+    payload: { start, end },
+  };
+};
+
 
 export const getDetails = (id) => {
   return (dispatch) => {
@@ -43,12 +52,12 @@ export const getDetails = (id) => {
 };
 
 
-export const filterByName = (name) => {
+export const searchName = (name) => {
   return (dispatch) => {
     fetch(`http//localhost:3001/dogs?name=${name}`)
       .then((response) => response.json())
       .then((data) =>
-        dispatch({ type: FILTER_BY_NAME, payload: data })
+        dispatch({ type: SEARCH_NAME, payload: data })
       );
   };
 };
@@ -58,8 +67,12 @@ export const filterByTemperament = (payload) => {
   return { type: FILTER_BY_TEMPERAMENTS, payload };
 };
 
+export const filterByCreation = (payload) => {
+  return { type: FILTER_BY_CREATION, payload };
+};
 
-export const orderByName = (payload) => {
+
+export const sortByName = (payload) => {
   return { type: SORT_BY_NAME, payload };
 };
 
@@ -91,41 +104,3 @@ export const deleteDog = (id) => {
     }
   };
 }
-
-
-// export const searchCharacters = () => {
-//   return function (dispatch) {
-//     fetch("https://rickandmortyapi.com/api/character")
-//       .then((response) => response.json())
-//       .then((data) =>
-//         dispatch({ type: GET_CHARACTERS, payload: data.results } ))
-//       .catch(console.log(error));
-      
-//   };
-// };
-
-// export const getDetails = (id) => {
-//   return function (dispatch) {
-//     fetch(`https://rickandmortyapi.com/api/character/${id}`)
-//       .then((response) => response.json())
-//       .then((data) =>
-//         dispatch({ type: GET_DETAILS, payload: data })
-//       );
-//   };
-// };
-// export function getDetails(id) {
-//   return async function (dispatch) {
-//     try {
-//       var response = await axios.get(
-//         `https://rickandmortyapi.com/api/character/${id}`
-//       );
-//       console.log(response.data);
-//       return dispatch({
-//         type: GET_DETAILS,
-//         payload: response.data,
-//       });
-//     } catch (error) {
-//       window.alert("error");
-//     }
-//   };
-// }

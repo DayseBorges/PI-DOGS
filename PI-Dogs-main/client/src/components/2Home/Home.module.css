@@ -1,0 +1,14 @@
+.home {
+    /* background: linear-gradient(rgb(255, 255, 255), orange); */
+    background-size:cover; 
+    min-height: 100vh;
+    background-repeat: no-repeat;
+}
+
+.video {
+    position: fixed;
+    height: 150%;
+    width: 120%;
+    margin-top: -8em;
+    margin-bottom: 100px;
+}
