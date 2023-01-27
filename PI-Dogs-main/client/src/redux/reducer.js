@@ -85,7 +85,7 @@ import {
       case SEARCH_NAME:
         return {
           ...state,
-          dogs: action.payload,
+          copyDogs: [...action.payload],
         }
 
 
@@ -134,49 +134,6 @@ import {
           ...state,
           copyDogs:[...sortWeight], 
         }
-        // const sortWeight = action.payload === "asc"
-        //   ? [...state.copyDogs].sort((a, b) => {
-        //      if (a.weight.slice(5) > b.weight.slice(5)) {
-        //       return action.payload ? 1 : -1;
-        //      } 
-        //     return 0;
-        //   })
-        //   : [...state.copyDogs].sort((a, b) => {
-        //     if (a.weight.slice(5) < b.weight.slice(5)) {
-        //       return action.payload ? -1 : 1;
-        //     }
-        //     return 0;
-        //   })
-  
-        //   return {
-        //     ...state,
-        //     copyDogs: [...sortWeight],
-        //   }
-
-          // const sortWeight = action.payload === "asc"
-          // ? state.dogs.sort((a, b) => {
-          //    if (a.weight.includes("NaN")) {
-          //       return 1000;
-          //    } else {
-          //     if (parseInt(a.weight.split(" - "))[0] > parseInt(b.weight.split(" - "))[0]) return 1;
-          //     if (parseInt(a.weight.split(" - "))[0] < parseInt(b.weight.split(" - "))[0]) return -1;
-          //     return 0;
-          //    }
-          // })
-          // : state.dogs.sort((a, b) => {
-          //     if (a.weight.includes("NaN")) {
-          //       return 1000;
-          //     } else {
-          //       if (parseInt(a.weight.split(" - "))[0] > parseInt(b.weight.split(" - "))[0]) return -1;
-          //       if (parseInt(a.weight.split(" - "))[0] < parseInt(b.weight.split(" - "))[0]) return 1;
-          //       return 0;
-          //     }
-          // })
-  
-          // return {
-          //   ...state,
-          //   dogs: [...sortWeight],
-          // }
 
 
       case CREATE_DOG:

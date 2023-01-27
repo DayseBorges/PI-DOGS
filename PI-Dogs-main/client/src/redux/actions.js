@@ -19,7 +19,10 @@ export const getDogs = () => {
       .then((response) => response.json())
       .then((data) =>
         dispatch({ type: GET_DOGS, payload: data })
-      );
+      )
+      .catch((error) => {
+        console.log(error);
+      })
   };
 };
 
@@ -30,7 +33,10 @@ export const getTemperaments = () => {
       .then((response) => response.json())
       .then((data) =>
         dispatch({ type: GET_TEMPERAMENTS, payload: data })
-      );
+      )
+      .catch((error) => {
+        console.log(error);
+      })
   };
 };
 
@@ -48,17 +54,23 @@ export const getDetails = (id) => {
       .then((response) => response.json())
       .then((data) =>
         dispatch({ type: GET_DETAILS, payload: data }))
+      .catch((error) => {
+        console.log(error);
+      })
   };
 };
 
 
 export const searchName = (name) => {
   return (dispatch) => {
-    fetch(`http//localhost:3001/dogs?name=${name}`)
+    fetch(`http://localhost:3001/dogs?name=${name}`)
       .then((response) => response.json())
       .then((data) =>
         dispatch({ type: SEARCH_NAME, payload: data })
-      );
+      )
+      .catch((error) => {
+        window.alert("Breed not Found!") ;
+      })
   };
 };
 
@@ -82,14 +94,11 @@ export const orderByWeight = (payload) => {
 };
 
 
-export const createdog = (payload) => {
-  return async (dispatch) => {
-    try {
-      let response = await axios.post("http//localhost:3001/dogs", payload)
-      return dispatch({ type: CREATE_DOG, payload:response.data })
-    } catch (error) {
-      return dispatch({ type: CREATE_DOG, payload: error.response.data })
-    }
+export const createDog = (payload) => {
+  return async () => {
+      const response = await axios.post("http//localhost:3001/dogs", payload)
+      console.log(response);
+      return response;
   };
 };
 

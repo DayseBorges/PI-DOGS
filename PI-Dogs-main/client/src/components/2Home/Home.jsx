@@ -9,7 +9,7 @@ const Home = () => {
     return ( 
         <div className={style.home}>
             <video autoPlay muted loop className={style.video}>
-                    <source src = {videoHome} type="video/mp4"></source>
+            <source src = {videoHome} type="video/mp4"></source>
             </video>
             <NavBar />
             <Cards />
