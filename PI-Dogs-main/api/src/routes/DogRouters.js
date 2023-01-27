@@ -51,6 +51,7 @@ dogRouter.get("/:idRaza", async (req, res) => {
 
 dogRouter.post("/", async (req, res) => {
     let { name, heightMin, heightMax, weightMin, weightMax, lifeSpanMin, lifeSpanMax, image, bred_for, temperaments } = req.body;
+    // console.log(req.body);
     try {
         let newDog = await createDog( name, heightMin, heightMax, weightMin, weightMax, lifeSpanMin, lifeSpanMax, image, bred_for, temperaments );
         res.status(SECCESS).json(newDog);

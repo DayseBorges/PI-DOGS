@@ -139,8 +139,7 @@ import {
       case CREATE_DOG:
         return {
           ...state,
-          copyDogs: [action.payload, state.copyDogs],
-          temperaments: [action.payload, state.temperaments]
+          ...action.payload
         };
 
 

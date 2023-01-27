@@ -3,7 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { createDog, getDogs, getTemperaments } from "../../redux/actions";
 import style from "./Create.module.css";
-import videoHome from "../../videos/videoHome.mp4"
+import videoCreate from "../../videos/videoCreate.mp4"
 import img from "../../images/create.jpg"
 
 
@@ -42,7 +42,9 @@ const validate = (input) => {
 
   if (input.lifeSpanMin && input.lifeSpanMax && parseInt(input.lifeSpanMin) >= parseInt(input.lifeSpanMax)) error.life_span_max = 'Maximum life span must be bigger than minimum.'
 
-  if (input.temperament.length > 6) error.temperament = ""
+  if (input.temperaments.length > 6) error.temperaments = ""
+
+  if (!input.temperaments || input.temperaments.length === 0) error.temperaments = "Please select at least one temperament"
 
   return error;
 }
@@ -55,7 +57,7 @@ const CreateDog = () => {
   const dogs = useSelector((state) => state.dogs)
   const history = useHistory()
 
-  const bredFor = Array.from(new Set(dogs.map((breed) => breed.bred_for)));
+  const bredFor = Array.from(new Set(dogs.map((breed) => breed.bred_for).join().split(",")));
 
   const [error, setError] = useState({});
   const [input, setInput] = useState({
@@ -68,7 +70,7 @@ const CreateDog = () => {
     lifeSpanMin: "",
     lifeSpanMax: "",
     bred_for: "",
-    temperament: [],
+    temperaments: [],
   })
 
   useEffect(() => {
@@ -97,21 +99,21 @@ const CreateDog = () => {
   }
 
   const handleSelect = (event) => {
-    if (!input.temperament.includes(event.target.value) && input.temperament.length < 8)
+    if (!input.temperaments.includes(event.target.value) && input.temperaments.length < 8)
     setInput({
       ...input,
-      temperament: [...input.temperament, event.target.value]
+      temperaments: [...input.temperaments, event.target.value]
     })
     setError(validate({
       ...input,
-      temperament: event.target.value
+      temperaments: event.target.value
     }))
   }
 
   const handleDelete = (element) => {
     setInput({
       ...input,
-      temperament: input.temperament.filter((temperament) => temperament !== element),
+      temperaments: input.temperaments.filter((temperaments) => temperaments !== element),
     });
   }
 
@@ -122,8 +124,9 @@ const CreateDog = () => {
         //     name: input.name.trim(),
         //     image: input.image.length ? input.image.trim() : {img},
         // };
-
+        
         dispatch(createDog(input))
+        console.log(input);
         alert('Breed created!')
         setInput({
           name: "",
@@ -135,161 +138,162 @@ const CreateDog = () => {
           lifeSpanMin: "",
           lifeSpanMax: "",
           bred_for: "",
-          temperament: [],
+          temperaments: [],
         });
-        history.push('/home')
         
+        history.push('/home')
 }
 
     return (
       <div className={style.body}>
         <video autoPlay muted loop className={style.video}>
-        <source src = {videoHome} type="video/mp4"></source>
+        <source src = {videoCreate} type="video/mp4"></source>
         </video>
 
         <Link to= "/home" className={style.buttonBack} >HOME</Link>
         <div className={style.container}>
           
-        <form action="">
+          <form action="">
 
         
 
-          <div>
-            <label>Name</label>
-            <input 
-            className={style.inputName}
-            type="text" 
-            value={input.name}
-            name="name"
-            onChange={(event) => handleChange(event)}
-            />
+            <div>
+              <label>Name</label>
+              <input 
+              className={style.inputName}
+              type="text" 
+              value={input.name}
+              name="name"
+              onChange={(event) => handleChange(event)}
+              />
 
-            {
-            error.name && ( <a className={style.warning}>{error.name}</a> )
-            }
+              {
+              error.name && ( <a className={style.warning}>{error.name}</a> )
+              }
           
-          </div>
+            </div>
 
-          <div className={style.div}>
-            <label>Height</label>
-            <input 
-            className={style.inputHeight}
-            type="number" 
-            value={input.heightMin}
-            name="heightMin"
-            placeholder="Min"
-            onChange={(event) => handleChange(event)}
-            />
-            -
-            <input 
-            className={style.inputHeightMax}
-            type="number" 
-            value={input.heightMax}
-            name="heightMax"
-            placeholder="Max"
-            onChange={(event) => handleChange(event)}
-            />
+            <div className={style.div}>
+              <label>Height</label>
+              <input 
+              className={style.inputHeight}
+              type="number" 
+              value={input.heightMin}
+              name="heightMin"
+              placeholder="Min"
+              onChange={(event) => handleChange(event)}
+              />
+              -
+              <input 
+              className={style.inputHeightMax}
+              type="number" 
+              value={input.heightMax}
+              name="heightMax"
+              placeholder="Max"
+              onChange={(event) => handleChange(event)}
+              />
 
-            {
+              {
               error.heightMin && ( <a className={style.warning}>{error.heightMin}</a> )
-            }
-            {
+              }
+              {
               error.heightMax && ( <a className={style.warning}>{error.heightMax}</a> )
-            }
+              }
 
-          </div>
+            </div>
 
-          <div className={style.div}>
-            <label>Weight</label>
-            <input 
-            className={style.inputWeight}
-            type="number" 
-            value={input.weightMin}
-            name="weightMin"
-            placeholder="Min"
-            onChange={(event) => handleChange(event)}
-            />
-            -
-            <input 
-            className={style.inputWeightMax}
-            type="number" 
-            value={input.weightMax}
-            name="weightMax"
-            placeholder="Max"
-            onChange={(event) => handleChange(event)}
-            />
+            <div className={style.div}>
+              <label>Weight</label>
+              <input 
+              className={style.inputWeight}
+              type="number" 
+              value={input.weightMin}
+              name="weightMin"
+              placeholder="Min"
+              onChange={(event) => handleChange(event)}
+              />
+              -
+              <input 
+              className={style.inputWeightMax}
+              type="number" 
+              value={input.weightMax}
+              name="weightMax"
+              placeholder="Max"
+              onChange={(event) => handleChange(event)}
+              />
 
-            {
-              error.weightMin && ( <a className={style.warning}>{error.weightMin}</a> )
-            }
-            {
-              error.weightMax && ( <a className={style.warning}>{error.weightMax}</a> )
-            }
+              {
+                error.weightMin && ( <a className={style.warning}>{error.weightMin}</a> )
+              }
+              {
+                error.weightMax && ( <a className={style.warning}>{error.weightMax}</a> )
+              }
 
-          </div>
+            </div>
 
-          <div className={style.div}>
-            <label>Life Span</label>
-            <input 
-            className={style.inputLife}
-            type="number" 
-            value={input.lifeSpanMin}
-            name="lifeSpanMin"
-            placeholder="Min"
-            onChange={(event) => handleChange(event)}
-            />
-            -
-            <input 
-            className={style.inputLifeMax}
-            type="number" 
-            value={input.lifeSpanMax}
-            name="lifeSpanMax"
-            placeholder="Max"
-            onChange={(event) => handleChange(event)}
-            />
+            <div className={style.div}>
+              <label>Life Span</label>
+              <input 
+              className={style.inputLife}
+              type="number" 
+              value={input.lifeSpanMin}
+              name="lifeSpanMin"
+              placeholder="Min"
+              onChange={(event) => handleChange(event)}
+              />
+              -
+              <input 
+              className={style.inputLifeMax}
+              type="number" 
+              value={input.lifeSpanMax}
+              name="lifeSpanMax"
+              placeholder="Max"
+              onChange={(event) => handleChange(event)}
+              />
 
-            {
-              error.lifeSpanMin && ( <a className={style.warning}>{error.lifeSpanMin}</a> )
-            }
-            {
-              error.lifeSpanMax && ( <a className={style.warning}>{error.lifeSpanMax}</a> )
-            }
+              {
+               error.lifeSpanMin && ( <a className={style.warning}>{error.lifeSpanMin}</a> )
+              }
+              {
+                error.lifeSpanMax && ( <a className={style.warning}>{error.lifeSpanMax}</a> )
+              }
             
-          </div>
+            </div>
 
-          <div>
-          <a className={style.a}>Bred For</a>
-          <select className={style.selectB} defaultValue='default' name="bredFor" onChange={(event) => handleCheck(event)}>
-              <option hidden selected>Choose one</option>
-              {bredFor.map((bredFor) => ( 
-                  <option >
-                      {bredFor}
-                  </option> 
-              ))}
-          </select>
+            <div>
+            <a className={style.a}>Bred For</a>
+            <select className={style.selectB} defaultValue='default' name="bredFor" onChange={(event) => handleCheck(event)}>
+                <option  hidden selected>Choose one</option>
+                {bredFor.map((bredFor) => ( 
+                    <option className={style.option}>
+                        {bredFor.trim()}
+                    </option> 
+                ))}
+            </select>
 
 
-          </div>
+            </div>
           
-          <div>
-          <a className={style.a} >Add eight</a>
-          <select className={style.selectT} defaultValue='default' name="temperaments" onChange={(event) => handleSelect(event)}>
-              <option hidden selected> Temperaments </option>
+            <div>
+            <a className={style.a} >Add eight</a>
+            <select className={style.selectT} defaultValue='default' name="temperaments" onChange={handleSelect}>
+              <option hidden selected> temperaments </option>
+
                 {temperaments.map((temp) => (
-                  <option>{temp.name}</option>
+                  <option value={temp.name} key={temp.id}>{temp.name}</option>
                 ))}
             </select>
           </div>
             
           </form>
 
-          {input.temperament.map((element) => (
-          <div className={style.temp} key={element}>
-            <a>{element}</a>
-            <button className={style.button} onClick={() => handleDelete(element)}>x</button>
+          {input.temperaments.map((temp, id) => (
+          <div className={style.temp} key={temp}>
+            <a key={id}>{temp}</a>
+            <button value={temp} className={style.button} onClick={() => handleDelete(temp)}>x</button>
 
             {
-              error.temperament && ( <a className={style.warning}>{error.temperament}</a> )
+              error.temperaments && ( <a className={style.warning}>{error.temperaments}</a> )
             }
           </div>
 

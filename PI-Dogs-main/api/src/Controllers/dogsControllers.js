@@ -1,5 +1,7 @@
 const { Dog, Temperament } = require("../db");
 const { Op } = require("sequelize");
+// const { allDogs } = require("../Controllers/joinDB")
+
 
 const getDogs = async () => {
   const dogs = await Dog.findAll({
@@ -42,9 +44,10 @@ const createDog = async ( name, heightMin, heightMax, weightMin, weightMax, life
       },
     });
     await newDog.addTemperament(pushTemp[0]);
-    return Temperament;
   })
+  return newDog;
 };
+
 
 module.exports = {
   getDogs,

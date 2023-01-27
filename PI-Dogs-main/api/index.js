@@ -19,11 +19,10 @@
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
-const { temperamentDB } = require("./src/Controllers/temperamentsControllers")
 const PORT = 3001 
 
 // Syncing all the models at once.
-conn.sync({ force: true }).then(() => {
+conn.sync({ alter: true }).then(() => {
   server.listen(PORT, async () => {
     console.log('listening at port', PORT); // eslint-disable-line no-console
   });

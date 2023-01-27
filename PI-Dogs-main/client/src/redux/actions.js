@@ -98,8 +98,8 @@ export const createDog = (breed) => {
   return async (dispatch) => {
     try {
       const response = await axios.post("http://localhost:3001/dogs/", breed)
-      console.log(response);
-      return dispatch({type: CREATE_DOG, payload: response});
+      console.log(response.data);
+      return dispatch({type: CREATE_DOG, payload: response.data});
     } catch (error) {
       return dispatch({ type: 'CREATE_DOG', payload: error.response.data })
     }

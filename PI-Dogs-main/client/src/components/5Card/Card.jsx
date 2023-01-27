@@ -11,7 +11,7 @@ const Card = ({ id, name, image, weight, temperaments }) => {
         <img className={style.img} src={image} alt={name} />
         <div className={style.cardInfo}>
           <img className={style.pata} src={pata} alt={pata} />
-          <Link to={`/details/${id}`} className={style.name}>{name}</Link>
+          <Link to={`/dogs/${id}`} className={style.name}>{name}</Link>
           <p className={style.width}>weight {weight}</p>
           <p className={style.temperaments}> <span className={style.nameTemperaments}> Temperament</span> <br /> {temperaments}</p>
         </div>
