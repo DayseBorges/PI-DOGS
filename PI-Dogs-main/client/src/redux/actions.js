@@ -50,7 +50,7 @@ export const pageDogs = (start, end) => {
 
 export const getDetails = (id) => {
   return (dispatch) => {
-    fetch(`http//localhost:3001/dogs/${id}`)
+    fetch(`http://localhost:3001/dogs/${id}`)
       .then((response) => response.json())
       .then((data) =>
         dispatch({ type: GET_DETAILS, payload: data }))
@@ -94,11 +94,15 @@ export const orderByWeight = (payload) => {
 };
 
 
-export const createDog = (payload) => {
-  return async () => {
-      const response = await axios.post("http//localhost:3001/dogs", payload)
+export const createDog = (breed) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.post("http://localhost:3001/dogs/", breed)
       console.log(response);
-      return response;
+      return dispatch({type: CREATE_DOG, payload: response});
+    } catch (error) {
+      return dispatch({ type: 'CREATE_DOG', payload: error.response.data })
+    }
   };
 };
 

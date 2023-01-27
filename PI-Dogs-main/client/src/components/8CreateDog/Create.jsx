@@ -64,7 +64,7 @@ const CreateDog = () => {
     heightMax: "",
     weightMin: "",
     weightMax: "",
-    image: "",
+    image: img,
     lifeSpanMin: "",
     lifeSpanMax: "",
     bred_for: "",
@@ -97,7 +97,7 @@ const CreateDog = () => {
   }
 
   const handleSelect = (event) => {
-    if (!input.temperament.includes(event.target.value) && input.temperament.length < 6)
+    if (!input.temperament.includes(event.target.value) && input.temperament.length < 8)
     setInput({
       ...input,
       temperament: [...input.temperament, event.target.value]
@@ -125,7 +125,6 @@ const CreateDog = () => {
 
         dispatch(createDog(input))
         alert('Breed created!')
-
         setInput({
           name: "",
           heightMin: "",
@@ -139,6 +138,7 @@ const CreateDog = () => {
           temperament: [],
         });
         history.push('/home')
+        
 }
 
     return (
@@ -147,21 +147,12 @@ const CreateDog = () => {
         <source src = {videoHome} type="video/mp4"></source>
         </video>
 
-        <Link to= "/home" >Back</Link>
+        <Link to= "/home" className={style.buttonBack} >HOME</Link>
         <div className={style.container}>
           
         <form action="">
 
-        <div >
-            <label>Image</label>
-            <input 
-            className={style.inputImg}
-            type="text" 
-            value={input.image}
-            name="image"
-            onChange={(event) => handleChange(event)}
-            />
-          </div>
+        
 
           <div>
             <label>Name</label>
@@ -281,7 +272,7 @@ const CreateDog = () => {
           </div>
           
           <div>
-          <a className={style.a} >Add six</a>
+          <a className={style.a} >Add eight</a>
           <select className={style.selectT} defaultValue='default' name="temperaments" onChange={(event) => handleSelect(event)}>
               <option hidden selected> Temperaments </option>
                 {temperaments.map((temp) => (
@@ -307,7 +298,7 @@ const CreateDog = () => {
       
         </div>
         <div className={style.buttonCreate}>
-          <button className={style.buttonC} type="submit" onSubmit={(event) => handleSubmit(event)}>Create Breed</button>
+          <button className={style.buttonC} type="submit" onClick={(event) => handleSubmit(event)}>Create Breed</button>
         </div>
       </div>
     )

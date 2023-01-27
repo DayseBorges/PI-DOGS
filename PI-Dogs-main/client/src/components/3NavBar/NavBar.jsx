@@ -9,7 +9,7 @@ const NavBar = () => {
   return (
     <div className={styles.navBar}>
       <div className={styles.itens}>
-        <Link className={styles.links} to={'/home'}><p>Home</p></Link>
+        <Link className={styles.links} to={'/'}><p>Landing</p></Link>
         <Link className={styles.links} to={'/create'}><p>Create</p></Link>
         <Link className={styles.links} to={'/about'}><p>About</p></Link>
         <div className={styles.search}>

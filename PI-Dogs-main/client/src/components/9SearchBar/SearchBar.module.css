@@ -1,7 +1,7 @@
 .container {
     position: absolute;
     display:flex;
-    margin-left: 440px;
+    margin-left: 380px;
     margin-top: -27px;
     justify-content: end;
 }
@@ -16,6 +16,7 @@
     font-family: 'Montserrat', sans-serif;
     margin-bottom: 15px;
     margin-top: 10px;
+    text-align: left;
 }
 
 input[type=number]::-webkit-inner-spin-button,
@@ -32,7 +33,7 @@ input[type=number]::-webkit-outer-spin-button {
     font-size: 20px;
     border: 2px solid rgba(63, 63, 87, 0);
     background-color: rgba(191, 223, 190, 0);
-    margin-left: -40px;
+    margin-left: -45px;
     margin-top: 8px;
 }
 
