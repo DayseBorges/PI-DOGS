@@ -11,36 +11,39 @@ const getDogs = async () => {
 const findDogs = async (name) => {
   let upperName = name.charAt(0).toUpperCase() + name.slice(1);
   const results = await Dog.findAll({
-    include:  Temperament,
     where: {
       name: { [Op.iLike]: `%${upperName}%` },
     },
+    include:  Temperament,
   });
   if (results.length) return results;
-  else throw Error(`This dog breed was not found: ${name.toUpperCase()} `);
+  else throw Error(`This dog breed was not found: ${name} `);
 };
 
 
-const createDog = async ( name, height, weight, lifeSpan, image, bred_for, temperamentName ) => {
-  if (!name || !height || !weight) throw Error("Mandatory data is missing");
+const createDog = async ( name, heightMin, heightMax, weightMin, weightMax, lifeSpanMin, lifeSpanMax, image, bred_for, temperaments ) => {
+  if (!name || !heightMin || !heightMax || !weightMin || !weightMax) throw Error("Mandatory data is missing");
 
+  
   const newDog = await Dog.create({
-    name,
-    height,
-    weight,
-    lifeSpan,
-    image,
-    bred_for,
+        name: name[0].toUpperCase() + name.slice(1), 
+        height: `${heightMin} - ${heightMax}`, 
+        weight: `${weightMin} - ${weightMax}`, 
+        lifeSpan: lifeSpanMin && lifeSpanMax ? `${lifeSpanMin} - ${lifeSpanMax} years` : null,
+        image: image ? image : null, 
+        bred_for: bred_for ? bred_for : null,
+        temperaments: temperaments,
   });
 
-  const pushTemp = await Temperament.findAll({
-    where: {
-      name: temperamentName,
-    },
-  });
-
-  await newDog.addTemperament(pushTemp);
-  return newDog;
+  temperaments.forEach(async (element) => {
+    const pushTemp = await Temperament.findAll({
+      where: {
+        name: element,
+      },
+    });
+    await newDog.addTemperament(pushTemp[0]);
+    return Temperament;
+  })
 };
 
 module.exports = {
