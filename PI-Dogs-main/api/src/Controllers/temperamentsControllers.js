@@ -1,6 +1,6 @@
 const { get } = require ("axios");
 const { URL, API_KEY } = process.env;
-const { Temperament } = require("../db");
+const { Temperaments } = require("../db");
 
 
 const getDogsApi = async () => {
@@ -27,7 +27,7 @@ const temperamentDB = async () => {
 
     tempDB.forEach(element => {
         if(element) {
-            Temperament.findOrCreate({
+            Temperaments.findOrCreate({
                 where: {
                     name: element
                 }
@@ -37,7 +37,7 @@ const temperamentDB = async () => {
         
     });
     
-    const allTemperaments = await Temperament.findAll();
+    const allTemperaments = await Temperaments.findAll();
     return allTemperaments;
 };
 

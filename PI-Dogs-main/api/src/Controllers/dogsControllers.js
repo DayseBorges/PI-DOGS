@@ -1,14 +1,41 @@
-const { Dog, Temperament } = require("../db");
+const { Dog, Temperaments } = require("../db");
 const { Op } = require("sequelize");
 // const { allDogs } = require("../Controllers/joinDB")
 
 
 const getDogs = async () => {
   const dogs = await Dog.findAll({
-    include:  Temperament,
+    include:  {
+      model: Temperaments,
+      attributes: ["name"],
+      through: {
+        attributes: []
+      }
+    }
   });
-  return dogs;
+  return format(dogs);
 };
+
+const format = (dogs) => {
+  let breedsFormated = dogs.map(({ id, name, height, weight, lifeSpan, bred_for, image, temperaments = [] }) => {
+    return {
+      id,
+      name,
+      height,
+      weight,
+      lifeSpan,
+      bred_for,
+      image,
+      temperaments: temperaments
+        .map((temperament) => {
+          return temperament.name;
+        })
+        .join(", "),
+    };
+  });
+  console.log(breedsFormated);
+  return breedsFormated;
+}
 
 const findDogs = async (name) => {
   let upperName = name.charAt(0).toUpperCase() + name.slice(1);
@@ -16,7 +43,7 @@ const findDogs = async (name) => {
     where: {
       name: { [Op.iLike]: `%${upperName}%` },
     },
-    include:  Temperament,
+    include:  Temperaments,
   });
   if (results.length) return results;
   else throw Error(`This dog breed was not found: ${name} `);
@@ -34,16 +61,17 @@ const createDog = async ( name, heightMin, heightMax, weightMin, weightMax, life
         lifeSpan: lifeSpanMin && lifeSpanMax ? `${lifeSpanMin} - ${lifeSpanMax} years` : null,
         image: image ? image : null, 
         bred_for: bred_for ? bred_for : null,
-        temperaments: temperaments,
   });
 
   temperaments.forEach(async (element) => {
-    const pushTemp = await Temperament.findAll({
+    const pushTemp = await Temperaments.findAll({
       where: {
         name: element,
       },
     });
-    await newDog.addTemperament(pushTemp[0]);
+ 
+    await newDog.addTemperaments(pushTemp);
+    
   })
   return newDog;
 };
