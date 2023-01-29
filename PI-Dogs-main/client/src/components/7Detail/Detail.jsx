@@ -26,18 +26,30 @@ function Details(props) {
         <div className={styles.container}>
           <h2 className={styles.name}>{dogDetails.name}</h2>
           <div className={styles.infos}>
-          <p className={styles.whightN}>Weight</p>
+
+            <div>
+            <p className={styles.weightN}>Weight</p>
             <h4 className={styles.weight}>{dogDetails.weight} kg</h4>
+            </div>
+
             <p className={styles.separation}>|</p>
-            <p className="itenName">Height</p>
-            <h4 className={styles.height}>{dogDetails.height} cm</h4>
+
+            <div>
+              <p className={styles.heightN}>Height</p>
+              <h4 className={styles.height}>{dogDetails.height} cm</h4>
+            </div>
+
             <p className={styles.separation}>|</p>
-            <p className="itenName">Life Span</p>
-            <h4 className={styles.lifeSpan}>{dogDetails.life_span}</h4>
+
+            <div>
+              <p className={styles.lifeSpanN}>Life Span</p>
+              <h4 className={styles.lifeSpan}>{dogDetails.life_span}</h4>
+            </div>
+
           </div>
-          <p className="itenName">Bred For</p>
+          <p className={styles.tempName}>Bred For</p>
           <h4 className={styles.bredFor}> {dogDetails.bred_for}</h4>
-          <p className="itenName">Temperaments</p>
+          <p className={styles.tempName}>Temperaments</p>
           <h5 className={styles.temp}> {dogDetails.temperaments}</h5>
         </div>
         <img
