@@ -17,7 +17,7 @@ const LandingPage = () => {
                     <Link to="/home" >
                     <button className={styles.boton}>see cute</button>
                     </Link> 
-                    <Link to="/home" >
+                    <Link to="/about" >
 
                     <button className={styles.boton2}>about</button>
                     </Link>

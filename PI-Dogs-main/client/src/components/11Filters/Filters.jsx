@@ -19,7 +19,7 @@ export default function Filters() {
         dispatch(filterByTemperament(event.target.value))
     };
 
-    const temperaments = useSelector((state) => state.temperaments).sort(
+    const temperaments = useSelector((state) => state.temperaments)?.sort(
       function (a, b) {
           if (a < b) return -1;
           else return 1;

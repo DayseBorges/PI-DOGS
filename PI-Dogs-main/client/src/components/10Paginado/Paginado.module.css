@@ -32,12 +32,12 @@
   }
   
   .paginadoContainer .itens .arrow:hover {
-    color:  rgb(170, 74, 0);
+    color:  rgb(245, 106, 0);
   }
   
   
   .current {
-    color: rgb(170, 74, 0);
+    color: rgb(245, 106, 0);
     padding: 5px 6px;
     min-width: 32px;
     min-height: 18px;

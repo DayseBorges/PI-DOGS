@@ -78,7 +78,7 @@ const Paginado = ({ copyDogs, pageDogs }) => {
             </li>
             {currentButtons.map((data, index) => {
               return (
-                <li key={index} className={`${styles.itens}`}>
+                <li key={index} className={styles.itens}>
                   <a
                     className={`${currentPage === data ? styles.current : styles.arrow}`}
                     onClick={() => setCurrentPage(data)}

@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+.body {
+    display: flex;
+    align-items:inherit;
+    background-color: rgb(255, 172, 17);
+    height: 657px;
+}
+
+.video {
+    position: fixed;
+    height: 180%;
+    margin-bottom: 100px;
+    margin-top: -60px;
+}
+
+.container {
+    padding: 75px;
+    width: 480px;
+    margin-top: 100px;
+    margin-left: 430px;
+    background-color: rgba(255, 255, 255, 0.447);
+    height: 300px;
+    position: relative;
+}
+
+.img {
+    position: absolute;
+    width: 350px;
+    height: 250px;
+    margin-top: 200px;
+    margin-left: 290px;
+    border-radius: 10px;
+}
+
+.name {
+    font-family:'Montserrat', sans-serif;
+    font-size: 27px;
+    color: rgb(255, 255, 255);
+    letter-spacing: 2px;
+    margin-top: -38px;
+}
+
+.infos {
+    width: 460px;
+    display: flex;
+    flex-wrap: wrap; 
+    flex-direction: row;
+    margin-left: 148px; 
+}
+
+.weightN {
+    font-family:'Montserrat', sans-serif;
+    color: rgb(156, 91, 0);
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.weight {
+    font-family:'Montserrat', sans-serif;
+    font-size: 18px;
+    color: white;
+    margin-top: -10px;
+    width: 350px;
+}
+
+.bredFor {
+    font-family:'Montserrat', sans-serif;
+    font-size: 18px;
+    color: white;
+    margin-left: 150px;
+    display: flex;
+    gap: 20px;
+    margin-top: -10px;
+} 
+
+.tempName {
+    margin-left: 150px;
+    font-family:'Montserrat', sans-serif;
+    color: rgb(156, 91, 0);
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 0px;
+}
+
+.temp {
+    margin-left: 150px;
+    margin-top: -10px;
+    font-family:'Montserrat', sans-serif;
+    color: white;
+    font-size: 17px;
+    letter-spacing: 2px;
+}
+
+.buttonBack {
+    position: absolute;
+    margin-left: 120px;
+    margin-top: 60px;
+    font-family:'Montserrat', sans-serif;
+    letter-spacing: 1.5px;
+    text-decoration: none;
+    font-size: 22px;
+    color: white;
+    transition-duration: 0.3s;
+}
+
+.buttonBack:hover {
+    text-shadow: 0px 0px 10px #ff8000, 0px 0px 5px #ffffff, 0 0 5px #ffffff;
+    transition-duration: 0.5s;
+}

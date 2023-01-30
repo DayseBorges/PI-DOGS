@@ -9,7 +9,7 @@ import {
   GET_DETAILS,
   CREATE_DOG,
   DELETE_DOG,
-  FILTER_BY_CREATION
+  FILTER_BY_CREATION,
   } from "./actions";
   
   const inicialState = {
@@ -60,9 +60,11 @@ import {
           ? allDogs.filter(dog => !isNaN(dog.id))
           : allDogs.filter(dog => isNaN(dog.id))
         }
+        if (action.payload !== "allDogs") {
         allDogs = action.payload === "allDogs"
         ? allDogs 
         : allDogs.filter(element => element.temperaments?.toUpperCase().includes(action.payload.toUpperCase()));
+        }
 
         return {
           ...state,
@@ -85,7 +87,7 @@ import {
         
         return {
           ...state,
-          copyDogs: allDogs,
+          copyDogs: [ ...allDogs ],
           filters: { ...state.filters, origin: action.payload }
         }
         
@@ -157,9 +159,6 @@ import {
           copyDogs: state.copyDogs.filter(dogs => dogs.id.toString() !== action.payload.toString())
         };
 
-      
-  
-  
       default:
         return {
           ...state,

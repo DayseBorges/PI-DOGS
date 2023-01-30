@@ -14,7 +14,7 @@ class Cards extends React.Component {
     this.props.getDogs();
     this.props.getTemperaments();
   }
-
+  
   render() {
     return (
        <div className={styles.cards}>
