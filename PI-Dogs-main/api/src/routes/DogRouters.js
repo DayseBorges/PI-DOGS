@@ -1,23 +1,13 @@
 const { Router } = require('express');
-const { getByID, createDog, findDogs } = require("../Controllers/dogsControllers")
+const { createDog } = require("../Controllers/dogsControllers")
 const { allDogs } = require("../Controllers/joinDB")
 
 const SECCESS = 200;
 const ERR = 400;
 
-
 const dogRouter = Router();
 
 dogRouter.get("/", async (req, res) => {
-    // const { name } = req.query;
-    // let dogs;
-    // try {
-    //     if(name) dogs = await findDogs(name);
-    //     else dogs = await allDogs();
-    //     res.status(SECCESS).json(dogs);
-    // } catch (error) {
-    //     res.status(ERR).send(error.message)
-    // }
     try {
         const {name} = req.query;
     const all = await allDogs();
@@ -51,7 +41,6 @@ dogRouter.get("/:idRaza", async (req, res) => {
 
 dogRouter.post("/", async (req, res) => {
     let { name, heightMin, heightMax, weightMin, weightMax, lifeSpanMin, lifeSpanMax, image, bred_for, temperaments } = req.body;
-    // console.log(req.body);
     try {
         let newDog = await createDog( name, heightMin, heightMax, weightMin, weightMax, lifeSpanMin, lifeSpanMax, image, bred_for, temperaments );
         res.status(SECCESS).json(newDog);

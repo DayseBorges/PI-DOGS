@@ -1,24 +1,24 @@
-/* eslint-disable import/no-extraneous-dependencies */
-const { expect } = require('chai');
-const session = require('supertest-session');
-const app = require('../../src/app.js');
-const { Dog, conn } = require('../../src/db.js');
+const request = require('supertest');
+const app = require('../../src/app');
+const { expect } = require("chai");
 
-const agent = session(app);
-const dog = {
-  name: 'Pug',
-};
+describe('GET /dogs', () => {
+    it('should return all dog breeds', async () => {
+        const response = await request(app).get('/dogs');
+        expect(response.statusCode).to.equal(200);
+        expect(response.body).to.be.instanceof(Array);
+    });
 
-describe('Videogame routes', () => {
-  before(() => conn.authenticate()
-  .catch((err) => {
-    console.error('Unable to connect to the database:', err);
-  }));
-  beforeEach(() => Dog.sync({ force: true })
-    .then(() => Dog.create(dog)));
-  describe('GET /dogs', () => {
-    it('should get 200', () =>
-      agent.get('/dogs').expect(200)
-    );
-  });
+    it('should return a specific dog breed by name', async () => {
+        const response = await request(app).get('/dogs?name=Labrador');
+        expect(response.statusCode).to.equal(200);
+        expect(response.body).to.be.instanceof(Array);
+        expect(response.body[0].name.toLowerCase()).to.contain("labrador");
+    });
+
+    it('should return an error if the dog breed is not found', async () => {
+        const response = await request(app).get('/dogs?name=RazaInexistente');
+        expect(response.statusCode).to.equal(404);
+        expect(response.text).to.contain("This dog breed was not found: RazaInexistente");
+    });
 });

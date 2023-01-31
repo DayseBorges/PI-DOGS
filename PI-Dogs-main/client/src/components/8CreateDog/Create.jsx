@@ -78,8 +78,8 @@ const CreateDog = () => {
     weightMin: "",
     weightMax: "",
     image: img,
-    lifeSpanMin: "",
-    lifeSpanMax: "",
+    lifeSpanMin: "10",
+    lifeSpanMax: "12",
     bred_for: "",
     temperaments: [],
   })
