@@ -1,6 +1,6 @@
 import React from 'react';
-// import { Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useHistory } from "react-router-dom";
+import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { filterByTemperament, filterByCreation, sortByName, orderByWeight } from '../../redux/actions';
 import style from "./Filters.module.css"
@@ -10,15 +10,18 @@ import style from "./Filters.module.css"
 export default function Filters() {
 
     const dispatch = useDispatch();
-    const [currentPageOrder, setCurrentPageOrder] = useState(1);
-    const [order, setOrder] = useState('')
+    const [setCurrentPageOrder] = useState(1);
+    const [setOrder] = useState('')
+
+    const history = useHistory()
 
     function handleTemperament(event) {
         event.preventDefault();
         dispatch(filterByTemperament(event.target.value))
+        history.push("/home")
     };
 
-    const temperaments = useSelector((state) => state.temperaments)?.sort(
+    const temperamentsSort = useSelector((state) => state.temperaments)?.sort(
       function (a, b) {
           if (a < b) return -1;
           else return 1;
@@ -30,6 +33,7 @@ export default function Filters() {
         dispatch(sortByName(e.target.value))
         setCurrentPageOrder(1);
         setOrder(`Ordenado ${e.target.value}`)
+        history.push("/home")
     };
 
     function handleOrderWeight(e) {
@@ -37,10 +41,12 @@ export default function Filters() {
         dispatch(orderByWeight(e.target.value))
         setCurrentPageOrder(1);
         setOrder(`Ordenado ${e.target.value}`)
+        history.push("/home")
     };
 
     function handleCreated(event) {
         dispatch(filterByCreation(event.target.value))
+        history.push("/home")
     };
 
 
@@ -56,7 +62,9 @@ export default function Filters() {
 
                 <select className={style.temp} onChange={(event) => handleTemperament(event)}>
                         <option value="allDogs">Temperaments</option>
-                        {temperaments.map((temp) => {
+                        {temperamentsSort
+                            .sort((a, b) => a.name.localeCompare(b.name))
+                            .map((temp) => {
                             return (
                                 <option value={temp.name} key={temp.id}>
                                     {temp.name}

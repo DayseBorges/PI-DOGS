@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getDetails, getTemperaments } from "../../redux/actions";
+import { getDetails } from "../../redux/actions";
 import styles from "./Detail.module.css";
 import videoDetail from "../../videos/videoDetail.mp4"
 import img from "../../images/loader.gif"
@@ -11,7 +11,6 @@ function Details(props) {
   const dogDetails = useSelector((state) => state.details);
   const dispatch = useDispatch();
   const [loader, setLoader] = useState()
-
 
   useEffect(() => {
     setTimeout(() => {

@@ -9,7 +9,7 @@ import img from "../../images/loader.gif"
 const Home = () => {
 
     const [loader, setLoader] = useState()
-
+    
     useEffect(() => {
         setLoader(true)
     }, [])

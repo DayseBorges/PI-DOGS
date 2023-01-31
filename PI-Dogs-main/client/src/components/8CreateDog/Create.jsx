@@ -66,7 +66,11 @@ const CreateDog = () => {
   const dogs = useSelector((state) => state.dogs)
   const history = useHistory()
 
-  const bredFor = Array.from(new Set(dogs.map((breed) => breed.bred_for).join().split(",")));
+  const bredFor = Array.from(new Set(dogs
+    .map((breed) => breed.bred_for?.trim())
+    .filter((bred) => bred)
+    .join()
+    .split(",")));
 
  
   const [loader, setLoader] = useState()
@@ -281,9 +285,10 @@ const CreateDog = () => {
             <a className={style.a}>Bred For</a>
             <select className={style.selectB} defaultValue='default' name="bredFor" onChange={(event) => handleCheck(event)}>
                 <option  hidden selected>Choose one</option>
-                {bredFor.map((bredFor) => ( 
+                {bredFor
+                  .map((bredFor) => ( 
                     <option className={style.option}>
-                        {bredFor.trim()}
+                        {bredFor}
                     </option> 
                 ))}
             </select>
@@ -294,9 +299,11 @@ const CreateDog = () => {
             <div>
             <a className={style.a} >Add eight</a>
             <select className={style.selectT} defaultValue='default' name="temperaments" onChange={handleSelect}>
-              <option hidden selected> temperaments </option>
+              <option hidden selected> Temperaments </option>
 
-                {temperaments.map((temp) => (
+                {temperaments
+                  .sort((a, b) => a.name.localeCompare(b.name))
+                  .map((temp) => (
                   <option value={temp.name} key={temp.id}>{temp.name}</option>
                 ))}
             </select>

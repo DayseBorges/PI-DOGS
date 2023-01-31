@@ -108,8 +108,8 @@ input {
     transition-duration: 0.2s;
     margin-left: 28px;
     margin-top: 10px;
-    
 }
+
 
 .selectT {
     background-color: rgba(227, 125, 0, 0.6);
@@ -202,9 +202,10 @@ input {
 }
 
 .option {
-    width: 100px;
+    width: 50px;
     color: #b65c02;
     padding: 100px;
+    line-height: 20px;
 }
 
 .loader {
