@@ -3,22 +3,35 @@ import Card from "../5Card/Card";
 import styles from './Cards.module.css'
 import { connect } from 'react-redux'
 import { getDogs, getTemperaments } from '../../redux/actions';
+import img from "../../images/loader.gif"
 
 
 class Cards extends React.Component {
   constructor(props) {
     super(props)
+
+    this.state = {
+      loading: false,
+    }
   }
 
+
   componentDidMount() {
-    this.props.getDogs();
-    this.props.getTemperaments();
+    
+    setTimeout(() => {
+      this.props.getDogs();
+      this.props.getTemperaments();
+      this.setState({ loading: false })
+    }, 2000);
+    
   }
-  
+
+
   render() {
+
     return (
        <div className={styles.cards}>
-              {
+              { 
               [...this.props.pageDogs].map(dog => {
               return (
                 <Card

@@ -3,6 +3,8 @@ import styles from "./About.module.css"
 import videoDetail from "../../videos/videoDetail.mp4"
 import image from "../../images/aboutMi.jpg"
 import { Link } from "react-router-dom";
+import imgLinkedin from "../../images/li.png" 
+import imgGitHub from "../../images/gh.png" 
 
 const About = () => {
     return (
@@ -34,6 +36,15 @@ const About = () => {
           className={styles.img}
           src={image}
           alt="img" />
+      </div>
+      <div className={styles.ks}>
+        <a href="https://www.linkedin.com/in/dayseborges/">
+          <img className={styles.ksli} src={imgLinkedin} alt="linkedin" />
+        </a>
+
+        <a href="https://github.com/DayseBorges">
+          <img className={styles.ksgh} src={imgGitHub} alt="git" />
+        </a>
       </div>
       
     </div>

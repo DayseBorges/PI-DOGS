@@ -56,6 +56,9 @@ const Paginado = ({ copyDogs, pageDogs }) => {
     } else if (currentPage > buttons.length - 3) {
       const sliced = buttons.slice(buttons.length - 1);
       templateNumbers = [ ...sliced ];
+    } 
+    if (currentPage > numPages){
+      start()
     }
 
     setCurrentButtons(templateNumbers);

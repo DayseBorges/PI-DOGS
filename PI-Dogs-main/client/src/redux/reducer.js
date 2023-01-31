@@ -55,13 +55,14 @@ import {
       
 
       case FILTER_BY_TEMPERAMENTS:
+        console.log(state.filters.origin);
         if (state.filters.origin !== "allDogs") {
-          allDogs = action.payload === "Api"
+          allDogs = state.filters.origin === "Api"
           ? allDogs.filter(dog => !isNaN(dog.id))
           : allDogs.filter(dog => isNaN(dog.id))
         }
         if (action.payload !== "allDogs") {
-        allDogs = action.payload === "allDogs"
+        allDogs = action.payload === "allDogs" 
         ? allDogs 
         : allDogs.filter(element => element.temperaments?.toUpperCase().includes(action.payload.toUpperCase()));
         }
@@ -74,11 +75,11 @@ import {
 
 
       case FILTER_BY_CREATION:
-        if(state.filters.temperaments !== "allDogs") {
-        allDogs = action.payload === "allDogs"
-          ? allDogs
-          : allDogs.filter(element => element.temperaments?.toUpperCase().includes(action.payload.toUpperCase()));
-        } 
+        console.log(state.filters.temperaments)
+        allDogs = state.filters.temperaments === "allDogs"
+          ? [...allDogs]
+          : allDogs.filter(element => element.temperaments?.toUpperCase().includes(state.filters.temperaments.toUpperCase()));
+        
         if (action.payload !== "allDogs") {
           allDogs = action.payload === "Api"
           ? allDogs.filter(dog => !isNaN(dog.id))

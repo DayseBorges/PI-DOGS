@@ -10,7 +10,6 @@ import style from "./Filters.module.css"
 export default function Filters() {
 
     const dispatch = useDispatch();
-    // const allDogs = useSelector((element) => element.copyDogs);
     const [currentPageOrder, setCurrentPageOrder] = useState(1);
     const [order, setOrder] = useState('')
 
@@ -51,8 +50,8 @@ export default function Filters() {
 
                 <select onChange={(event) => handleCreated(event)} >
                     <option value="allDogs">Dogs</option>
-                    <option value="Created">My Characters</option>
-                    <option value="Api">Api Characters</option>
+                    <option value="Created">My Dogs</option>
+                    <option value="Api">Api Dogs</option>
                 </select>
 
                 <select className={style.temp} onChange={(event) => handleTemperament(event)}>

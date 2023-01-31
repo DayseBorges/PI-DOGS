@@ -32,6 +32,7 @@ module.exports = (sequelize) => {
 
     lifeSpan: {
       type: DataTypes.STRING,
+      defaultValue: "10 - 12"
     },
 
     bred_for: {
