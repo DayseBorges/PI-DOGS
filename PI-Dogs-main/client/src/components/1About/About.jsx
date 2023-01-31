@@ -1,21 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./About.module.css"
 import videoDetail from "../../videos/videoDetail.mp4"
 import image from "../../images/aboutMi.jpg"
 import { Link } from "react-router-dom";
 import imgLinkedin from "../../images/li.png" 
 import imgGitHub from "../../images/gh.png" 
+import img from "../../images/loader.gif"
 
 const About = () => {
+
+  const [loader, setLoader] = useState()
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoader(true)
+    }, 1000);
+  }, []);
+
     return (
-      <div>
+      <div className={styles.body}>
+        { loader ? (
+        <>
       <video autoPlay muted loop className={styles.video}>
         <source src = {videoDetail} type="video/mp4"></source>
       </video>
       
       
       <Link to= "/home" className={styles.buttonBack} >HOME</Link>
-      <div className={styles.body}>
+      <div>
         <div className={styles.container}>
           <h2 className={styles.name}>Dayse Borges</h2>
 
@@ -46,7 +58,13 @@ const About = () => {
           <img className={styles.ksgh} src={imgGitHub} alt="git" />
         </a>
       </div>
-      
+      </>
+      ) : (
+        <img
+        className={styles.loader}
+        src={img}
+        />
+        )}
     </div>
   );
 }

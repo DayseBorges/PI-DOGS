@@ -28,7 +28,7 @@
     position: absolute;
     width: 350px;
     height: 250px;
-    margin-top: 200px;
+    margin-top: -350px;
     margin-left: 290px;
     border-radius: 10px;
 }
@@ -153,4 +153,15 @@
 .buttonBack:hover {
     text-shadow: 0px 0px 10px #ff8000, 0px 0px 5px #ffffff, 0 0 5px #ffffff;
     transition-duration: 0.5s;
+}
+
+.loader {
+    height: 500px;
+    width: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 450px;
+    margin-top: 80px;
+    
 }

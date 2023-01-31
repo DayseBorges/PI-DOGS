@@ -5,12 +5,13 @@ import { createDog, getDogs, getTemperaments } from "../../redux/actions";
 import style from "./Create.module.css";
 import videoCreate from "../../videos/videoCreate.mp4"
 import img from "../../images/create.jpg"
+import loaderImg from "../../images/loader.gif"
 
 
 const validate = (input) => {
   let error = {};
 
-  if (!input.name) error.name = "";
+  if (!input.name) error.name = "Write something";
   else if (!/^[a-zA-Z\s]*$/.test(input.name) || typeof input.name !== "string") error.name = "Invalid name"
   else if (input.name.length > 30) error.name = "Name must be under 30 characters.";
   if (allNames[input.name]) error.name = "This Breed already exist!";
@@ -68,7 +69,7 @@ const CreateDog = () => {
   const bredFor = Array.from(new Set(dogs.map((breed) => breed.bred_for).join().split(",")));
 
  
-
+  const [loader, setLoader] = useState()
   const [error, setError] = useState({});
   const [input, setInput] = useState({
     name: "",
@@ -91,6 +92,9 @@ const CreateDog = () => {
       }})
     dispatch(getTemperaments())
     dispatch(getDogs())
+    setTimeout(() => {
+      setLoader(true)
+    }, 1000);
   }, [])
 
   const handleChange = (event) => {
@@ -136,7 +140,7 @@ const CreateDog = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-        if (!error.name && !error.heightMin && !error.heightMax && !error.weightMin && !error.weightMax && !error.lifeSpanMin && !error.lifeSpanMax && !error.temperaments) {
+        if (input.name && !error.name && !error.heightMin && !error.heightMax && !error.weightMin && !error.weightMax && !error.lifeSpanMin && !error.lifeSpanMax && !error.temperaments) {
           dispatch(createDog(input))
           alert('Breed created!')
           setInput({
@@ -159,6 +163,8 @@ const CreateDog = () => {
 
     return (
       <div className={style.body}>
+        { loader ? (
+        <>
         <video autoPlay muted loop className={style.video}>
         <source src = {videoCreate} type="video/mp4"></source>
         </video>
@@ -315,6 +321,13 @@ const CreateDog = () => {
         <div className={style.buttonCreate}>
           <button className={style.buttonC} type="submit" onClick={(event) => handleSubmit(event)}>Create Breed</button>
         </div>
+        </>
+      ) : (
+        <img
+        className={style.loader}
+        src={loaderImg}
+        />
+        )}
       </div>
     )
   }

@@ -22,16 +22,17 @@ class Cards extends React.Component {
       this.props.getDogs();
       this.props.getTemperaments();
       this.setState({ loading: false })
-    }, 2000);
+    }, 10);
     
   }
 
 
   render() {
+    if (this.state.loading)  return (<p>landing...</p> )
 
     return (
        <div className={styles.cards}>
-              { 
+              {
               [...this.props.pageDogs].map(dog => {
               return (
                 <Card

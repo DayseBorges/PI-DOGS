@@ -11,10 +11,7 @@ const Home = () => {
     const [loader, setLoader] = useState()
 
     useEffect(() => {
-        setTimeout(() => {
-            setLoader(true)
-        }, 2000);
-        
+        setLoader(true)
     }, [])
 
     return ( 
