@@ -1,6 +1,5 @@
 const { Dog, Temperaments } = require("../db");
 const { Op } = require("sequelize");
-// const { allDogs } = require("../Controllers/joinDB")
 
 
 const getDogs = async () => {
@@ -33,7 +32,6 @@ const format = (dogs) => {
         .join(", "),
     };
   });
-  console.log(breedsFormated);
   return breedsFormated;
 }
 

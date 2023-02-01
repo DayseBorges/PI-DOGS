@@ -1,10 +1,10 @@
 const { get } = require ("axios");
-const { URL, API_KEY } = process.env;
+const { URL_PATH_API, API_KEY } = process.env;
 const { Temperaments } = require("../db");
 
 
 const getDogsApi = async () => {
-    const dogsApi = await get(`${URL}?api_key=${API_KEY}`);
+    const dogsApi = await get(`${URL_PATH_API}?api_key=${API_KEY}`);
     const dogsInfo = await dogsApi.data.map(dog => {
         return {
             id: dog.id,

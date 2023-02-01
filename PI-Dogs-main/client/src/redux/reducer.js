@@ -55,7 +55,6 @@ import {
       
 
       case FILTER_BY_TEMPERAMENTS:
-        console.log(state.filters.origin);
         if (state.filters.origin !== "allDogs") {
           allDogs = state.filters.origin === "Api"
           ? allDogs.filter(dog => !isNaN(dog.id))
@@ -75,7 +74,6 @@ import {
 
 
       case FILTER_BY_CREATION:
-        console.log(state.filters.temperaments)
         allDogs = state.filters.temperaments === "allDogs"
           ? [...allDogs]
           : allDogs.filter(element => element.temperaments?.toUpperCase().includes(state.filters.temperaments.toUpperCase()));

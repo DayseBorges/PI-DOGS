@@ -1,4 +1,5 @@
 import axios from "axios";
+const { REACT_APP_URL_PATH_API } = process.env;
 
 export const GET_DOGS = "GET_DOGS";
 export const GET_TEMPERAMENTS = "GET_TEMPERAMENTS";
@@ -15,13 +16,13 @@ export const FILTER_BY_CREATION = "FILTER_BY_CREATION";
 
 export const getDogs = () => {
   return (dispatch) => {
-    fetch("http://localhost:3001/dogs")
+    fetch(`${REACT_APP_URL_PATH_API}/dogs`)
       .then((response) => response.json())
       .then((data) =>
         dispatch({ type: GET_DOGS, payload: data })
       )
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
       })
   };
 };
@@ -29,13 +30,13 @@ export const getDogs = () => {
 
 export const getTemperaments = () => {
   return (dispatch) => {
-    fetch("http://localhost:3001/temperaments")
+    fetch(`${REACT_APP_URL_PATH_API}/temperaments`)
       .then((response) => response.json())
       .then((data) =>
         dispatch({ type: GET_TEMPERAMENTS, payload: data })
       )
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
       })
   };
 };
@@ -50,12 +51,12 @@ export const pageDogs = (start, end) => {
 
 export const getDetails = (id) => {
   return (dispatch) => {
-    fetch(`http://localhost:3001/dogs/${id}`)
+    fetch(`${REACT_APP_URL_PATH_API}/dogs/${id}`)
       .then((response) => response.json())
       .then((data) =>
         dispatch({ type: GET_DETAILS, payload: data }))
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
       })
   };
 };
@@ -63,7 +64,7 @@ export const getDetails = (id) => {
 
 export const searchName = (name) => {
   return (dispatch) => {
-    fetch(`http://localhost:3001/dogs?name=${name}`)
+    fetch(`${REACT_APP_URL_PATH_API}/dogs?name=${name}`)
       .then((response) => response.json())
       .then((data) =>
         dispatch({ type: SEARCH_NAME, payload: data })
@@ -97,8 +98,8 @@ export const orderByWeight = (payload) => {
 export const createDog = (breed) => {
   return async (dispatch) => {
     try {
-      const response = await axios.post("http://localhost:3001/dogs/", breed)
-      console.log(response.data);
+      const response = await axios.post(`${REACT_APP_URL_PATH_API}/dogs/`, breed)
+      // console.log(response.data);
       return dispatch({type: CREATE_DOG, payload: response.data});
     } catch (error) {
       return dispatch({ type: 'CREATE_DOG', payload: error.response.data })
@@ -110,7 +111,7 @@ export const createDog = (breed) => {
 export const deleteDog = (id) => {
   return async (dispatch) => {
     try {
-      let response = await axios.delete(`http//localhost:3001/dogs/${id}`)
+      let response = await axios.delete(`${REACT_APP_URL_PATH_API}/dogs/${id}`)
       return dispatch({ type: DELETE_DOG, payload:response.data })
     } catch (error) {
       return dispatch({ type: DELETE_DOG, payload: error.response.data })
