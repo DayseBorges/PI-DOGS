@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const dogRouter = require("./dogRouters.js");
+const dogRouter = require("./dogRouter.js");
 const temperamentRouter = require("./temperamentRoutes.js");
 
 // Importar todos los routers;
