@@ -39,7 +39,7 @@ const findDogs = async (name) => {
   let upperName = name.charAt(0).toUpperCase() + name.slice(1);
   const results = await Dog.findAll({
     where: {
-      name: { [Op.iLike]: `%${upperName}%` },
+      name: { [Op.iLike]: `%${upperName}%` }
     },
     include:  Temperaments,
   });
